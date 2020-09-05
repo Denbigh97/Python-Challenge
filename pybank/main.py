@@ -1,33 +1,35 @@
+
+    
 #import library
 import os
 import csv
 
 #joining path
-budget_data = os.path.join("Resources", "budget_data.csv")
+budget = os.path.join("resources", "budget.csv")
 
-# open and read csv
-with open(budget_data, newline="") as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=",")
+# open csv and read 
+with open(budget, newline="") as csvfile:
+    csvreader = csv.reader(csvfile)
     csv_header = next(csvfile)
-    # skip header row
+    # skip first row
     print(f"Header: {csv_header}")
 
     # find net amount of profit and loss
     P = []
     months = []
 
-    #read through each row of data after header
+    #read each row of data after header
     for rows in csvreader:
         P.append(int(rows[1]))
         months.append(rows[0])
 
-    # find revenue change
+    # find total change
     revenue_change = []
 
     for x in range(1, len(P)):
         revenue_change.append((int(P[x]) - int(P[x-1])))
     
-    # calculate average revenue change
+    # calculate avg revenue change
     revenue_average = sum(revenue_change) / len(revenue_change)
     
     # calculate total length of months
@@ -73,4 +75,12 @@ with open(budget_data, newline="") as csvfile:
 
     file.write("Greatest Decrease in Profits: " + str(months[revenue_change.index(min(revenue_change))+1]) + " " + "$" + str(greatest_decrease) + "\n")
 
-    file.close()
+    file.close()    
+    
+    
+    
+    
+    
+    
+    
+    
